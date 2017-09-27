@@ -1,15 +1,26 @@
 // Rover Object Goes Here
 // ======================
-var seguimiento = ["X=0, Y=0"];
-var rover ={
+var AAAAAAAAAAA = ["X=0, Y=0"];
+var rover1 ={
   direction:"N",
   x:0,
   y:0,
-  travelLog: seguimiento,
+  travelLog: "X=0, Y=0",
+  name: "Rover 1 ",
 };
+var AAAAAAAAAAA2 = ["X=5, Y=5"];
+var rover2 ={
+  direction:"N",
+  x:5,
+  y:5,
+  travelLog: "X=5, Y=5",
+  name: "Rover 2 "
+};
+// roverCount=0 is rover if is =1 is rover1 if is =2 rover2
+var roverCount=0;
 // ======================
 var mapRover=[
-  ['','','','','','','','','',''],
+  ['','','','','','X','','','',''],
   ['','','','','X','','','','',''],
   ['','','','','','','','','',''],
   ['','','X','','','','','','',''],
@@ -18,7 +29,7 @@ var mapRover=[
   ['','X','','','','','','','',''],
   ['','','','','','','','','',''],
   ['','','','','','','','','',''],
-  ['','','','','','','','','','']];
+  ['','','','','','X','','','','']];
 
 
 function turnLeft(rover){
@@ -69,6 +80,7 @@ function turnRight(rover){
       break;
   }
 }
+
 function obstacleFound(column,row){
   if ((mapRover[row][column])==="X") {
     console.log("Rover has found an obstacle.");
@@ -77,6 +89,7 @@ function obstacleFound(column,row){
     return false;
   }
 }
+
 function moveForward(rover){
   console.log("moveForward was called");
   switch (rover.direction) {
@@ -86,8 +99,7 @@ function moveForward(rover){
         break;
       }
       rover.y -= 1;
-      seguimiento.push("X="+rover.x+", Y="+rover.y);
-      rover.travelLog=seguimiento;
+      rover.travelLog=rover.travelLog+ " / X="+rover.x+", Y="+rover.y;
       console.log("You are moving forward North");
       console.log(rover);
     }
@@ -98,8 +110,9 @@ function moveForward(rover){
         break;
       }
       rover.y += 1;
-      seguimiento.push("X="+rover.x+", Y="+rover.y);
-      rover.travelLog=seguimiento;
+      //AAAAAAAAAAA.push("X="+rover.x+", Y="+rover.y);
+      //rover.travelLog.push("X="+rover.x+", Y="+rover.y);
+      rover.travelLog=rover.travelLog+ " / X="+rover.x+", Y="+rover.y;
       console.log("You are moving forward South");
       console.log(rover);
     }
@@ -110,8 +123,7 @@ function moveForward(rover){
         break;
       }
       rover.x += 1;
-      seguimiento.push("X="+rover.x+", Y="+rover.y);
-      rover.travelLog=seguimiento;
+      rover.travelLog=rover.travelLog+ " / X="+rover.x+", Y="+rover.y;
       console.log("You are moving forward East");
       console.log(rover);
     }
@@ -122,8 +134,7 @@ function moveForward(rover){
         break;
       }
       rover.x -= 1;
-      seguimiento.push("X="+rover.x+", Y="+rover.y);
-      rover.travelLog=seguimiento;
+      rover.travelLog=rover.travelLog+ " / X="+rover.x+", Y="+rover.y;
       console.log("You are moving forward West");
       console.log(rover);
     }
@@ -132,27 +143,39 @@ function moveForward(rover){
       console.log("Rover cannot move :,-(");
   }
 }
-function ejecutar(movimientos){
-  for (var i = 0; i < movimientos.length; i++) {
-    switch (movimientos[i]) {
+
+function main(movements){
+  var currentRover=rover1;
+  console.log("hola");
+  for (var i = 0; i < movements.length; i++) {
+    if (roverCount==0){
+      console.log("rover1");
+      currentRover=rover1;
+      roverCount=1;
+    }else{
+      console.log("rover2");
+      currentRover=rover2;
+      roverCount=0;
+    }
+    switch (movements[i]) {
       case "f":
-        moveForward(rover);
+        moveForward(currentRover);
         break;
       case "b":
-        moveBackward(rover);
+        moveBackward(currentRover);
         break;
       case "l":
-        turnLeft(rover);
+        turnLeft(currentRover);
         break;
       case "r":
-        turnRight(rover);
+        turnRight(currentRover);
         break;
       default:
-        console.log("Rover cannot valiate the input command called = "+movimientos[i]);
+        console.log(currentRover.name+" cannot valiate the input command called = "+movements[i]);
     }
   }
-  console.log(rover.travelLog);
 }
+
 function inTheMap(position,signo){
   if ((position===0)&&(signo==="-")) {
     console.log("You cannot leave the map");
@@ -163,6 +186,7 @@ function inTheMap(position,signo){
   }
   return true;
 }
+
 function moveBackward(rover){
   console.log("moveBackward was called");
   switch (rover.direction) {
@@ -172,8 +196,7 @@ function moveBackward(rover){
         break;
       }
       rover.y += 1;
-      seguimiento.push("X="+rover.x+", Y="+rover.y);
-      rover.travelLog=seguimiento;
+      rover.travelLog=rover.travelLog+ " / X="+rover.x+", Y="+rover.y;
       console.log("You are moving backward forward South");
       console.log(rover);
     }
@@ -184,8 +207,7 @@ function moveBackward(rover){
         break;
       }
       rover.y -= 1;
-      seguimiento.push("X="+rover.x+", Y="+rover.y);
-      rover.travelLog=seguimiento;
+      rover.travelLog=rover.travelLog+ " / X="+rover.x+", Y="+rover.y;
       console.log("You are moving backward forward North");
       console.log(rover);
     }
@@ -196,8 +218,7 @@ function moveBackward(rover){
         break;
       }
       rover.x -= 1;
-      seguimiento.push("X="+rover.x+", Y="+rover.y);
-      rover.travelLog=seguimiento;
+      rover.travelLog=rover.travelLog+ " / X="+rover.x+", Y="+rover.y;
       console.log("You are moving backward forward West");
       console.log(rover);
     }
@@ -208,8 +229,7 @@ function moveBackward(rover){
         break;
       }
       rover.x += 1;
-      seguimiento.push("X="+rover.x+", Y="+rover.y);
-      rover.travelLog=seguimiento;
+      rover.travelLog=rover.travelLog+ " / X="+rover.x+", Y="+rover.y;
       console.log("You are moving backward forward East");
       console.log(rover);
     }
