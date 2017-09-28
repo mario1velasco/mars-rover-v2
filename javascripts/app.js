@@ -1,5 +1,7 @@
 // Rover Object Goes Here
 // ======================
+var arrayRovers=[];
+/*
 var rover1 ={
   direction:"N",
   x:0,
@@ -7,23 +9,24 @@ var rover1 ={
   travelLog: "X=0, Y=0",
   name: "Rover 1 ",
 };
+
 var rover2 ={
   direction:"N",
   x:0,
   y:3,
   travelLog: "X=0, Y=3",
   name: "Rover 2 "
-};
+};*/
 // roverCount=0 is rover if is =1 is rover1 if is =2 rover2
 var roverCount=0;
 // ======================
 var mapRover=[
-  ['R','','','X','','','','','',''],
-  ['','','','X','','','','','',''],
   ['','','','','','','','','',''],
-  ['R','','','','','','','','',''],
   ['','','','','','','','','',''],
-  ['X','X','','','','','','','',''],
+  ['','','','','','','','','',''],
+  ['','','','','','','','','',''],
+  ['','','','','','','','','',''],
+  ['','','','','','','','','',''],
   ['','','','','','','','','',''],
   ['','','','','','','','','',''],
   ['','','','','','','','','',''],
@@ -87,10 +90,12 @@ function moveForward(rover){
       if(obstacleFound(rover.x,(rover.y-1))){
         break;
       }
+      mapRover[rover.y][rover.x]="";
       rover.y -= 1;
       rover.travelLog=rover.travelLog+ " / X="+rover.x+", Y="+rover.y;
       console.log(rover.name + "is moving forward North");
       console.log(rover);
+      mapRover[rover.y][rover.x]="R";
     }
     break;
     case "S":
@@ -98,7 +103,9 @@ function moveForward(rover){
       if(obstacleFound(rover.x,(rover.y+1))){
         break;
       }
+      mapRover[rover.y][rover.x]="";
       rover.y += 1;
+      mapRover[rover.y][rover.x]="R";
       rover.travelLog=rover.travelLog+ " / X="+rover.x+", Y="+rover.y;
       console.log(rover.name + "is moving forward South");
       console.log(rover);
@@ -109,7 +116,9 @@ function moveForward(rover){
       if(obstacleFound((rover.x+1),rover.y)){
         break;
       }
+      mapRover[rover.y][rover.x]="";
       rover.x += 1;
+      mapRover[rover.y][rover.x]="R";
       rover.travelLog=rover.travelLog+ " / X="+rover.x+", Y="+rover.y;
       console.log(rover.name + "is moving forward East");
       console.log(rover);
@@ -120,7 +129,9 @@ function moveForward(rover){
       if(obstacleFound((rover.x-1),rover.y)){
         break;
       }
+      mapRover[rover.y][rover.x]="";
       rover.x -= 1;
+      mapRover[rover.y][rover.x]="R";
       rover.travelLog=rover.travelLog+ " / X="+rover.x+", Y="+rover.y;
       console.log(rover.name + "is moving forward West");
       console.log(rover);
@@ -139,7 +150,9 @@ function moveBackward(rover){
       if(obstacleFound(rover.x,(rover.y+1))){
         break;
       }
+      mapRover[rover.y][rover.x]="";
       rover.y += 1;
+      mapRover[rover.y][rover.x]="R";
       rover.travelLog=rover.travelLog+ " / X="+rover.x+", Y="+rover.y;
       console.log(rover.name + "is moving backward forward South");
       console.log(rover);
@@ -150,7 +163,9 @@ function moveBackward(rover){
       if(obstacleFound(rover.x,(rover.y-1))){
         break;
       }
+      mapRover[rover.y][rover.x]="";
       rover.y -= 1;
+      mapRover[rover.y][rover.x]="R";
       rover.travelLog=rover.travelLog+ " / X="+rover.x+", Y="+rover.y;
       console.log(rover.name + "is moving backward forward North");
       console.log(rover);
@@ -161,7 +176,9 @@ function moveBackward(rover){
       if(obstacleFound((rover.x-1),rover.y)){
         break;
       }
+      mapRover[rover.y][rover.x]="";
       rover.x -= 1;
+      mapRover[rover.y][rover.x]="R";
       rover.travelLog=rover.travelLog+ " / X="+rover.x+", Y="+rover.y;
       console.log(rover.name + "is moving backward forward West");
       console.log(rover);
@@ -172,7 +189,9 @@ function moveBackward(rover){
       if(obstacleFound((rover.x+1),rover.y)){
         break;
       }
+      mapRover[rover.y][rover.x]="";
       rover.x += 1;
+      mapRover[rover.y][rover.x]="R";
       rover.travelLog=rover.travelLog+ " / X="+rover.x+", Y="+rover.y;
       console.log(rover.name + "is moving backward forward East");
       console.log(rover);
@@ -210,6 +229,7 @@ function main(movements){
         console.log(currentRover.name+" cannot valiate the input command called = "+movements[i]);
     }
   }
+  console.log(mapRover);
 }
 
 function inTheMap(position,signo){
@@ -299,6 +319,7 @@ function addObstacle(){
 function addRovers(){
   var x;
   var y;
+  var direct;
   var yOrN;
   var nextElement = true;
   var cont=1;
@@ -315,27 +336,61 @@ function addRovers(){
       console.log("That is not a option.");
       continue;
     }
-    if(mapRover[y][x]==="X"){
-      console.log("There is an obstacle in this position. Sorry, choose another position.");
+    if(mapRover[y][x]==="X"||mapRover[y][x]==="R"){
+      console.log("There is an obstacle or a Rover in this position. Sorry, choose another position.");
       continue;
     }
-    console.log("Obstacle "+cont+ " is in the position: ("+ x + "," + y + ")");
+    console.log("Please choose a direction (N, S, E, W).");
+    direct=prompt("Please choose a direction (N, S, E, W).",'');
+    if(direct==="N"||direct==="S"||direct==="E"||direct==="W"){
+    }else if(direct==null||direct === ""||isNaN(direct)){
+      console.log("That is not a option.");
+      continue;
+    }else{
+      console.log("That is not a option.");
+      continue;
+    }
+
+    console.log("Rover "+cont+ " is in the position: ("+ x + "," + y + "), and it direction is: "+direct);
     console.log("Do you want to add another Rover?");
     yOrN=prompt("Do you want to add another Rover? Write Y or N",'');
+    var nam="rover"+cont;
+    var traLog="X="+x+", Y="+y;
+    var rover ;
     if (yOrN !== "Y") {
       if(yOrN==="N"){
+        rover ={
+          direction:direct,
+          x:x,
+          y:y,
+          travelLog: traLog,
+          name: nam,
+          number: cont
+        };
         nextElement=false;
-        mapRover[y][x]="X";
+        mapRover[y][x]="R";
+        arrayRovers.push(rover);
       }
       else{
         console.log("Word doesn't recognized, this Rover will not be save.");
+        continue;
       }
     }else{
+      rover ={
+        direction:direct,
+        x:x,
+        y:y,
+        travelLog: traLog,
+        name: nam,
+        number: cont
+      };
       //mapRover is global
-      mapRover[y][x]="X";
+      mapRover[y][x]="R";
       cont +=cont;
+      arrayRovers.push(rover);
     }
   }
+  console.log(arrayRovers);
 }
 
 function sleep(milliseconds) {
