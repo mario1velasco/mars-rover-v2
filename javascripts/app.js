@@ -1,6 +1,5 @@
 // Rover Object Goes Here
 // ======================
-var arrayRovers=[];
 /*
 var rover1 ={
   direction:"N",
@@ -11,6 +10,7 @@ var rover1 ={
 };*/
 // roverCount=0 is rover if is =1 is rover1 if is =2 rover2
 var roverCount=0;
+var arrayRovers=[];
 // ======================
 var mapRover=[
   ['','','','','','','','','',''],
@@ -85,9 +85,9 @@ function moveForward(rover){
       mapRover[rover.y][rover.x]="";
       rover.y -= 1;
       rover.travelLog=rover.travelLog+ " / X="+rover.x+", Y="+rover.y;
-      console.log(rover.name + "is moving forward North");
+      console.log(rover.name + " is moving forward North");
       console.log(rover);
-      mapRover[rover.y][rover.x]="R";
+      mapRover[rover.y][rover.x]=rover.name;
     }
     break;
     case "S":
@@ -97,9 +97,9 @@ function moveForward(rover){
       }
       mapRover[rover.y][rover.x]="";
       rover.y += 1;
-      mapRover[rover.y][rover.x]="R";
+      mapRover[rover.y][rover.x]=rover.name;
       rover.travelLog=rover.travelLog+ " / X="+rover.x+", Y="+rover.y;
-      console.log(rover.name + "is moving forward South");
+      console.log(rover.name + " is moving forward South");
       console.log(rover);
     }
     break;
@@ -110,9 +110,9 @@ function moveForward(rover){
       }
       mapRover[rover.y][rover.x]="";
       rover.x += 1;
-      mapRover[rover.y][rover.x]="R";
+      mapRover[rover.y][rover.x]=rover.name;
       rover.travelLog=rover.travelLog+ " / X="+rover.x+", Y="+rover.y;
-      console.log(rover.name + "is moving forward East");
+      console.log(rover.name + " is moving forward East");
       console.log(rover);
     }
       break;
@@ -123,9 +123,9 @@ function moveForward(rover){
       }
       mapRover[rover.y][rover.x]="";
       rover.x -= 1;
-      mapRover[rover.y][rover.x]="R";
+      mapRover[rover.y][rover.x]=rover.name;
       rover.travelLog=rover.travelLog+ " / X="+rover.x+", Y="+rover.y;
-      console.log(rover.name + "is moving forward West");
+      console.log(rover.name + " is moving forward West");
       console.log(rover);
     }
       break;
@@ -144,9 +144,9 @@ function moveBackward(rover){
       }
       mapRover[rover.y][rover.x]="";
       rover.y += 1;
-      mapRover[rover.y][rover.x]="R";
+      mapRover[rover.y][rover.x]=rover.name;
       rover.travelLog=rover.travelLog+ " / X="+rover.x+", Y="+rover.y;
-      console.log(rover.name + "is moving backward forward South");
+      console.log(rover.name + " is moving backward forward South");
       console.log(rover);
     }
     break;
@@ -157,9 +157,9 @@ function moveBackward(rover){
       }
       mapRover[rover.y][rover.x]="";
       rover.y -= 1;
-      mapRover[rover.y][rover.x]="R";
+      mapRover[rover.y][rover.x]=rover.name;
       rover.travelLog=rover.travelLog+ " / X="+rover.x+", Y="+rover.y;
-      console.log(rover.name + "is moving backward forward North");
+      console.log(rover.name + " is moving backward forward North");
       console.log(rover);
     }
     break;
@@ -170,9 +170,9 @@ function moveBackward(rover){
       }
       mapRover[rover.y][rover.x]="";
       rover.x -= 1;
-      mapRover[rover.y][rover.x]="R";
+      mapRover[rover.y][rover.x]=rover.name;
       rover.travelLog=rover.travelLog+ " / X="+rover.x+", Y="+rover.y;
-      console.log(rover.name + "is moving backward forward West");
+      console.log(rover.name + " is moving backward forward West");
       console.log(rover);
     }
       break;
@@ -183,9 +183,9 @@ function moveBackward(rover){
       }
       mapRover[rover.y][rover.x]="";
       rover.x += 1;
-      mapRover[rover.y][rover.x]="R";
+      mapRover[rover.y][rover.x]=rover.name;
       rover.travelLog=rover.travelLog+ " / X="+rover.x+", Y="+rover.y;
-      console.log(rover.name + "is moving backward forward East");
+      console.log(rover.name + " is moving backward forward East");
       console.log(rover);
     }
       break;
@@ -201,34 +201,25 @@ function main(movements){
     console.log(currentRover);
     //roverCount VAR GLOBAL
     roverCount +=1;
-  }
-  console.log(mapRover);
-    /*
-    if (roverCount==0){
-      currentRover=rover1;
-      roverCount=1;
-    }else{
-      currentRover=rover2;
-      roverCount=0;
-    }
+
     switch (movements[i]) {
-      case "f":
+      case "F":
         moveForward(currentRover);
         break;
-      case "b":
+      case "B":
         moveBackward(currentRover);
         break;
-      case "l":
+      case "L":
         turnLeft(currentRover);
         break;
-      case "r":
+      case "R":
         turnRight(currentRover);
         break;
       default:
         console.log(currentRover.name+" cannot valiate the input command called = "+movements[i]);
     }
   }
-  console.log(mapRover);*/
+  console.log(mapRover);
 }
 
 function inTheMap(position,signo){
@@ -246,23 +237,12 @@ function obstacleFound(column,row){
   if ((mapRover[row][column])==="X") {
     console.log("Rover has found an obstacle.");
     return true;
-  }else if ((mapRover[row][column])==="R") {
+  }else if ((mapRover[row][column].charAt(0))==="R") {
     console.log("Rover has found another rober.");
     return true;
   }else{
     return false;
   }
-
-  /*else if ((column==rover1.x)&&(row==rover1.y)){
-    console.log("Rover has found another Rover");
-    return true;
-  }
-  else if ((column==rover2.x)&&(row==rover2.y)){
-    console.log("Rover has found another Rover");
-    return true;
-  }else{
-    return false;
-  }*/
 }
 
 function start (){
@@ -274,13 +254,16 @@ function start (){
   sleep(1000);
   console.log("We starting configurating the obstacle in the map.");
   sleep(1000);
-  addObstacle();
+  if(addObstacle()==="EX"){
+    return;
+  }
   console.log("Obstacles configurated succesfully.");
   sleep(1000);
   console.log("Now we are going to configurate the Rovers");
   sleep(3000);
-  addRovers();
-  console.log(mapRover);
+  if(addRovers()==="EX"){
+    return;
+  }
   console.log("Rover/s configurated succesfully");
   sleep(1000);
   console.log("Updating all the data to the map, please wait.");
@@ -291,27 +274,74 @@ function start (){
   sleep(1500);
   console.log("Please note if you type RLLFB, for example, R will be for the rover1, L->rover2, L->rover3...");
   sleep(1500);
-  console.log("If there are two rovers, for example, it will be: R->rover1, L->rover2, L->rover1...");
+  console.log("If there are two rovers, for example, it will be: R->rover1, L->rover2, L->rover1, F->rover2...");
   sleep(1500);
-  console.log("When last command finish, if you want to continue turning or moving, will be the next of the last rover use.");
+  console.log("When the last command finish, the computer safe the last rover use, so if continue with more commands, it will use the next rover.");
   sleep(1500);
   console.log("Starting with the commands:");
   var stopIt = true;
   var comm;
   var contin;
+  console.log("You want to continue using Mars Rover 2017 to insert the commands or you prefer using the function main(String)");
+  comm = prompt("You want to continue using Mars Rover 2017 to insert the commands. Press Y for continue",'');
+  comm=comm.toUpperCase();
+  if(comm!=="Y"){
+    stopIt=false;
+  }
   while (stopIt) {
     console.log("Please put the commands that you want to execute. (R, L, F, B)");
     comm = prompt("Please put the commands that you want to execute. (R, L, F, B)",'');
+    comm=comm.toUpperCase();
+    if(!validateCommands(comm)){
+      console.log("You make a mistake typping the commands "+comm+", please insert the commands again.");
+      continue;
+    }
+    console.log("You have chosen: "+comm);
     main(comm);
     console.log("Do you want to type new orders?");
     contin=prompt("Do you want to type new orders? Type Y if you want to continue.",'');
+    contin=contin.toUpperCase();
     if(contin!=="Y"){
       stopIt=false;
     }
   }
-  return true;
-
+  console.log("You are living Mars-Rover 2017");
+  sleep(2000);
+  console.log("If you want to continue using commands please use the function main(string)");
+  console.log("String are the movements = BBFFLLRR");
+  sleep(2000);
+  console.log("See you soon and have a nice day.");
+  sleep(2000);
 }
+
+
+function validateCommands(aStrng){
+  var valid=true;
+  for(var i=0;i<aStrng.length; i++){
+    var letter = aStrng.charAt(i);
+    switch (letter) {
+      case "F":
+        valid= true;
+        break;
+      case "B":
+        valid=true;
+        break;
+      case "L":
+        valid=true;
+        break;
+      case "R":
+        valid=true;
+        break;
+      default:
+        valid=false;
+    }
+    if(!valid){
+      return false;
+    }
+  }
+  return true;
+}
+
 
 function addObstacle(){
   var x;
@@ -320,9 +350,13 @@ function addObstacle(){
   var nextElement = true;
   var cont=1;
   var obs=prompt("Do you want to insert obstacles in the map? Type Y is you want to.",'');
+  obs=obs.toUpperCase();
+  if(obs==="EX"){
+    return "EX";
+  }
   if(obs==="Y"){
     while (nextElement){
-      console.log("Please put a number between 0 and 9, 0 is the part further to the West");
+      console.log("Obstacle: Please put a number between 0 and 9, 0 is the part further to the West");
       x=parseInt(prompt("Please put a number between 0 and 9, 0 is the part further to the West",''));
       if((x<0)||(x>9)||x==null||x === ""||isNaN(x)){
         console.log("That is not a option.");
@@ -337,6 +371,7 @@ function addObstacle(){
       console.log("Obstacle "+cont+ " is in the position: ("+ x + "," + y + ")");
       console.log("Do you want to add another obstacle?");
       yOrN=prompt("Do you want to add another obstacle? Write Y or N",'');
+      yOrN=yOrN.toUpperCase();
       if (yOrN !== "Y") {
         if(yOrN==="N"){
           nextElement=false;
@@ -363,12 +398,16 @@ function addRovers(){
   var cont=1;
   while (nextElement){
     console.log("Please put a number between 0 and 9, 0 is the part further to the West");
-    x=parseInt(prompt("Please put a number between 0 and 9, 0 is the part further to the West",''));
+    x=prompt("Please put a number between 0 and 9, 0 is the part further to the West",'');
+    if(x==="EX"||x==="ex"){
+      return "EX";
+    }
+    x=parseInt(x);
     if((x<0)||(x>9)||x==null||x === ""||isNaN(x)){
       console.log("That is not a option.");
       continue;
     }
-    console.log("Please put a number between 0 and 9, 0 is the part further to the North");
+    console.log("Rover: Please put a number between 0 and 9, 0 is the part further to the North");
     y=parseInt(prompt("Please put a number between 0 and 9, 0 is the part further to the North",''));
     if((y<0)||y>9||y==null||y === ""||isNaN(y)){
       console.log("That is not a option.");
@@ -380,6 +419,7 @@ function addRovers(){
     }
     console.log("Please choose a direction (N, S, E, W).");
     direct=prompt("Please choose a direction (N, S, E, W).",'');
+    direct=direct.toUpperCase();
     if(direct==="N"||direct==="S"||direct==="E"||direct==="W"){
     }else if(direct==null||direct === ""||isNaN(direct)){
       console.log("That is not a option.");
@@ -392,7 +432,8 @@ function addRovers(){
     console.log("Rover "+cont+ " is in the position: ("+ x + "," + y + "), and it direction is: "+direct);
     console.log("Do you want to add another Rover?");
     yOrN=prompt("Do you want to add another Rover? Write Y or N",'');
-    var nam="rover"+cont;
+    yOrN=yOrN.toUpperCase();
+    var nam="R"+cont;
     var traLog="X="+x+", Y="+y;
     var rover ;
     if (yOrN !== "Y") {
@@ -406,7 +447,7 @@ function addRovers(){
           number: cont
         };
         nextElement=false;
-        mapRover[y][x]="R";
+        mapRover[y][x]=nam;
       }
       else{
         console.log("Word doesn't recognized, this Rover will not be save.");
@@ -422,7 +463,7 @@ function addRovers(){
         number: cont
       };
       //mapRover is global
-      mapRover[y][x]="R";
+      mapRover[y][x]=nam;
       cont +=1;
     }
     arrayRovers.push(rover);
