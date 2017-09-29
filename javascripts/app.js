@@ -195,6 +195,7 @@ function moveBackward(rover){
 }
 
 function main(movements){
+  movements=movements.toUpperCase();
   var currentRover=arrayRovers[roverCount];
   for (var i = 0; i < movements.length; i++) {
     currentRover=arrayRovers[roverCount%arrayRovers.length];
